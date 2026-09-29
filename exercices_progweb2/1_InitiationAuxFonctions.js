@@ -16,6 +16,12 @@ function compare(a, b, c){
         }
 }
 
+// ou
+
+function compare2(a, b, c){
+    return Math.max(a,b,c);
+}
+
 const a = 4;
 const b = 20;
 const c = 3;
@@ -60,7 +66,7 @@ function compareB(a,b) {
     }
 }
 
-compareA(4, '4'); // true 
+compareA(4, '4'); // true
 compareA(4.0, '4'); // true
 compareA(4, 'quatre'); // false
 compareB(8, '8'); // false
@@ -146,6 +152,46 @@ function compteurlancebetter(n) {
 }
 
 console.log(compteurlancebetter(10));
+
+// Correction du prof
+
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function rollNTimes(min, max, times) {
+
+    const rolls = [];
+    for (let i = 0; i < times; i++) {
+    rolls.push(getRandomInt(min, max));
+  }
+    return rolls;
+}
+
+function count(n, values) {
+    let count = 0;
+    for(const v of values) {
+        if(v === n) {
+            count++;
+        }
+    }
+    return count;
+}
+
+const TAIL = 0;
+const FACE = 1;
+
+function getNbTailsAndFaces(times) {
+    const rolls = rollNTimes(TAIL, FACE, times);
+    const nbTails = count(TAIL, rolls);
+    const nbFaces = count(FACE, rolls);
+    return{
+        tails: nbTails,
+        faces: nbFaces,
+    }
+}
+
+console.log(getNbTailsAndFaces(10000));
 
 //------------------------------------------------------------------//
 
