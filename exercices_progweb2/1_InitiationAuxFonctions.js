@@ -269,3 +269,52 @@ function transform(n, f) {
 
 transform(5, double);
 transform(5, square);
+
+//------------------------------------------------------------------//
+
+console.log("exercice 9");
+
+// 9) Écrire une fonction repeatTransform qui reçoit un nombre, une fonction et un nombre de répétitions en paramètres.
+// Elle doit appliquer la fonction au nombre, puis appliquer à nouveau cette même fonction au résultat obtenu, autant de fois que demandé.
+// Elle retourne le résultat final.
+// repeatTransform(2, double, 3); // Returns 16: 2 → 4 → 8 → 16
+// repeatTransform(2, square, 2); // Returns 16: 2 → 4 → 16
+
+function double(n) {
+  return n * 2;
+}
+
+function square(n) {
+  return n * n;
+}
+
+function repeatTransform(nombre, transformation, repetitions) {
+  let resultat = nombre;
+  for (let i = 0; i < repetitions; i++) {
+    resultat = transformation(resultat);
+  }
+  return resultat;
+}
+
+console.log(repeatTransform(2, double, 3));
+console.log(repeatTransform(2, square, 2));
+
+//------------------------------------------------------------------//
+
+console.log("exercice 10");
+
+// 10) Écrire une fonction createGreeting qui reçoit une formule de salutation et retourne une nouvelle fonction.
+// La fonction retournée reçoit un prénom et retourne le message complet.
+// const sayHello = createGreeting('Hello');
+// const sayWelcome = createGreeting('Welcome');
+// sayHello('Ada');     // Returns "Hello Ada !"
+// sayWelcome('Linus'); // Returns "Welcome Linus !"
+
+function createGreeting(salutation) {
+  return function (prenom) {
+    return salutation + " " + prenom + " !";
+  };
+}
+
+const sayHello = createGreeting("Salut");
+console.log(sayHello("Mattia"));
