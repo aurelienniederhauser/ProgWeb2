@@ -184,3 +184,145 @@ const SUITS = ['hearts', 'spades', 'clubs', 'diamonds'];
 // console.log(red + label1 + defaultColor);
 // console.log(black + label2 + defaultColor);
 // Utiliser showCard pour afficher les cartes de la main de cinq cartes et rétablir la couleur normale après chaque carte.
+
+// 1
+console.log("1. Structure d'objet");
+const aceOfSpades = {
+  rank: ACE,
+  suits: 'spades',
+}
+const deck = [aceOfSpades];
+console.log(deck);
+
+// 2
+console.log("2. Construire un paquet de 52 cartes");
+function buildBaseDeck() {
+  const deck = [];
+  for(const suit of SUITS) {
+    for(const rank of RANKS) {
+      deck.push({rank: rank, suit: suit});
+    }
+  }
+  return deck;
+}
+const baseDeck = buildBaseDeck();
+console.log(baseDeck.length);
+console.log(0);
+console.log(51);
+
+// 3
+console.log("3. Mélange Fisher–Yates");
+function shuffleInPlace(deck) {
+    for (let i = deck.length - 1; i >= 1; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+    return deck;
+}
+shuffleInPlace(baseDeck);
+console.log(baseDeck);
+
+// 4
+console.log("4. Copie et mélange");
+function drawCards(deck, nb) {
+  const copy = [...deck];
+  shuffleInPlace(copy);
+  return copy.slice(deck, nb);
+}
+console.log(drawCards(baseDeck, 5));
+
+// 5
+console.log("5. Comparer deux rangs");
+function compareRank(card1, card2) {
+  // return card1.rank - card2.rank;    autre solution
+  if(card1.rank > card2.rank) {
+    return +1;
+  } else if(card1.rank < card2.rank) {
+    return -1;
+  } else {
+    return 0;
+  }
+}
+
+console.log(compareRank((deck[0], deck[1]) == 0 ? 'égal' : 'rang différent'));
+
+console.log(compareRank({ rank: 5, suit: 'hearts' }, { rank: 12, suit: 'spades' }));
+
+// 6
+console.log("6. Carte la plus haute");
+const hand = drawCards(baseDeck, 5);
+console.log(hand);
+function getHighestCard(hand) {
+  let highest = hand[0];
+
+  for(const card of hand) {
+    if(card.rank > highest.rank) {
+      highest = card;
+    }
+  }
+  return highest;
+}
+
+console.log(getHighestCard(hand));
+
+// 7
+console.log("7. displayRank & showCard");
+function displayRank(rank) {
+  if(rank === JACK) {
+    return 'J';
+  } else if(rank === QUEEN) {
+    return 'Q';
+  } else if(rank === KING) {
+    return 'K';
+  } else if(rank === ACE) {
+    return 'A';
+  } else {
+    return String(rank);
+  }
+}
+
+console.log(displayRank(7));    // '7'
+console.log(displayRank(10));   // '10'
+console.log(displayRank(12));   // 'Q'
+console.log(displayRank(ACE));  // 'A'
+
+const red = '\x1b[31;47m';
+const black = '\x1b[30;47m';
+const defaultColor = '\x1b[0m';
+const label1 = 'A♥';
+const label2= 'A♠';
+
+console.log(red + label1 + defaultColor);
+console.log(black + label2 + defaultColor);
+
+function showCard(card) {
+  // 1. Le symbole
+  let symbol;
+  if (card.suit === 'hearts') {
+    symbol = '♥';
+  } else if (card.suit === 'spades') {
+    symbol = '♠';
+  } else if (card.suit === 'clubs') {
+    symbol = '♣';
+  } else {
+    symbol = '♦';
+  }
+
+  // 2. La couleur d'affichage
+  let color;
+  if (card.suit === 'hearts' || card.suit === 'diamonds') {
+    color = red;
+  } else {
+    color = black;
+  }
+
+  // 3. Le texte de la carte
+  const label = displayRank(card.rank) + symbol;
+
+  // 4. L'affichage
+  console.log(color + label + defaultColor);
+}
+
+  for (const card of hand) {
+  showCard(card);
+}
